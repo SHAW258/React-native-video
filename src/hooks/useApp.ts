@@ -1,28 +1,8 @@
-import {useEffect, useMemo, useState} from 'react';
-import {VideoItem} from '../components/VideoPlayer';
+import {useState, useEffect, useMemo} from 'react';
+import type {VideoItem} from '../components/VideoPlayer';
 
-const VIDEO_API_URL = 'https://media-api-kotlin.onrender.com/video';
-
-function normalizeVideos(payload: unknown): VideoItem[] {
-  if (Array.isArray(payload)) {
-    return payload as VideoItem[];
-  }
-
-  if (payload && typeof payload === 'object') {
-    const data = (payload as {data?: unknown; videos?: unknown}).data;
-    const videos = (payload as {videos?: unknown}).videos;
-
-    if (Array.isArray(data)) {
-      return data as VideoItem[];
-    }
-
-    if (Array.isArray(videos)) {
-      return videos as VideoItem[];
-    }
-  }
-
-  return [];
-}
+// Render URL: https://media-api-kotlin.onrender.com/videos
+const API_URL = 'https://media-api-kotlin.onrender.com/videos';
 
 export function useApp() {
   const [videos, setVideos] = useState<VideoItem[]>([]);
@@ -33,41 +13,38 @@ export function useApp() {
 
   useEffect(() => {
     let isMounted = true;
-
     setLoading(true);
     setError(null);
-
-    fetch(VIDEO_API_URL)
-      .then(async response => {
-        if (!response.ok) {
-          throw new Error(`Server responded with ${response.status}`);
+    
+    fetch(API_URL)
+      .then(async r => {
+        if (!r.ok) {
+          throw new Error(`Server responded with ${r.status}`);
         }
-        return response.json();
-      })
-      .then(payload => {
-        if (!isMounted) return;
-        setVideos(normalizeVideos(payload));
-      })
-      .catch(fetchError => {
-        console.error('Video fetch error:', fetchError);
+        const data = await r.json();
         if (isMounted) {
-          setError('Failed to load videos. Please check your connection.');
+            // Support both direct array and {data: []} format
+            setVideos(Array.isArray(data) ? data : (data.data || []));
+        }
+      })
+      .catch(err => {
+        console.error('Fetch error:', err);
+        if (isMounted) {
+            setError('Failed to load videos. Please check your connection.');
         }
       })
       .finally(() => {
         if (isMounted) {
-          setLoading(false);
+            setLoading(false);
         }
       });
-
-    return () => {
-      isMounted = false;
-    };
+      
+    return () => { isMounted = false; };
   }, []);
 
-  const currentIndex = useMemo(
-    () => videos.findIndex(v => v.id === selected?.id),
-    [selected?.id, videos],
+  const currentIndex = useMemo(() => 
+    videos.findIndex(v => v.id === selected?.id),
+    [videos, selected?.id]
   );
 
   const playVideo = (item: VideoItem) => {
@@ -75,15 +52,21 @@ export function useApp() {
   };
 
   const playNext = () => {
-    if (!videos.length) return;
-    const nextIndex = currentIndex >= videos.length - 1 ? 0 : currentIndex + 1;
-    setSelected(videos[nextIndex]);
+    if (videos.length === 0) return;
+    if (currentIndex < videos.length - 1) {
+      setSelected(videos[currentIndex + 1]);
+    } else {
+      setSelected(videos[0]);
+    }
   };
 
   const playPrevious = () => {
-    if (!videos.length) return;
-    const prevIndex = currentIndex <= 0 ? videos.length - 1 : currentIndex - 1;
-    setSelected(videos[prevIndex]);
+    if (videos.length === 0) return;
+    if (currentIndex > 0) {
+      setSelected(videos[currentIndex - 1]);
+    } else {
+      setSelected(videos[videos.length - 1]);
+    }
   };
 
   return {

@@ -96,7 +96,7 @@ export default function VideoPlayer({
             },
           }}
           style={styles.video}
-          paused={player.paused || !player.isConnected || player.hasError}
+          paused={player.paused || player.hasError}
           rate={player.playbackRate}
           resizeMode={isMinimized ? "cover" : "contain"}
           useTextureView={true}
