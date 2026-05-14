@@ -6,14 +6,31 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "lint": "eslint .",
+    "postinstall": "patch-package",
     "start": "react-native start",
     "test": "jest"
   },
   "dependencies": {
+<<<<<<< Updated upstream
     "react": "19.2.3",
     "react-native": "0.85.2",
     "@react-native/new-app-screen": "0.85.2",
     "react-native-safe-area-context": "^5.5.2"
+=======
+    "@react-native-community/netinfo": "^12.0.1",
+    "@react-native-community/slider": "^5.2.0",
+    "@react-native/new-app-screen": "0.85.2",
+    "patch-package": "^8.0.1",
+    "react": "19.2.3",
+    "react-native": "0.85.2",
+    "react-native-orientation-locker": "^1.7.0",
+    "react-native-safe-area-context": "^5.7.0",
+    "react-native-screen-brightness": "^2.0.0-alpha",
+    "react-native-system-navigation-bar": "^2.8.0",
+    "react-native-track-player": "^4.1.2",
+    "react-native-vector-icons": "^10.3.0",
+    "react-native-video": "^6.19.2"
+>>>>>>> Stashed changes
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
