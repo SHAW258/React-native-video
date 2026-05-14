@@ -32,7 +32,7 @@ function AppContent() {
   const [isMinimized, setIsMinimized] = useState(false);
   const [activeSection, setActiveSection] = useState<ActiveSection>('video');
 
-  const baseHeaderHeight = 76;
+  const baseHeaderHeight = 60;
   const headerHeight = baseHeaderHeight + insets.top;
   const playerHeight = width * (9 / 16);
 

@@ -23,11 +23,10 @@ export const NormalPlayerView = ({
 
       <LoadingOverlay visible={(player.loading || player.hasError) && !player.isPip} thumbnailUrl={video.thumbnailUrl} />
 
-      {(player.loading || player.isBuffering || !player.isConnected) && !player.hasError && !player.isPip && (
+      {(player.loading || player.isBuffering) && !player.hasError && !player.isPip && (
         <View style={styles.centerOverlay} pointerEvents="none">
           <View style={styles.spinnerContainer}>
             <ActivityIndicator size={80} color="#fff" />
-            {!player.isConnected && <Text style={styles.offlineText}>No internet connection</Text>}
           </View>
         </View>
       )}

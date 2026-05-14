@@ -45,6 +45,7 @@ export function useSongPlayer({song, onNext}: UseSongPlayerProps) {
   const [showSpeedMenu, setShowSpeedMenu] = useState(false);
   const [playbackRate, setPlaybackRateState] = useState(1);
   const [isAutoplay, setIsAutoplay] = useState(true);
+  const [isPip, setIsPip] = useState(false);
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(state => {
@@ -180,6 +181,13 @@ export function useSongPlayer({song, onNext}: UseSongPlayerProps) {
       setIsAutoplay,
       togglePlay,
       handleSeek,
+      isPip,
+      setIsPip,
+      togglePip: () => {
+          // TrackPlayer doesn't have a native enterPip, but we can signal it
+          // Or if they are using a video component for audio artwork, we'd use that.
+          setIsPip(!isPip);
+      },
       status: state ?? 'initializing',
     }),
     [
@@ -200,6 +208,7 @@ export function useSongPlayer({song, onNext}: UseSongPlayerProps) {
       showSpeedMenu,
       state,
       togglePlay,
+      isPip,
     ],
   );
 }
