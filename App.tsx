@@ -1,40 +1,3 @@
-<<<<<<< Updated upstream
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
-
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
-  );
-}
-
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
-  return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
-    </View>
-=======
 import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
@@ -286,15 +249,10 @@ export default function App() {
     <SafeAreaProvider>
       <AppContent />
     </SafeAreaProvider>
->>>>>>> Stashed changes
   );
 }
 
 const styles = StyleSheet.create({
-<<<<<<< Updated upstream
-  container: {
-    flex: 1,
-=======
   mainContainer: {flex: 1, backgroundColor: '#000'},
   flexOne: {flex: 1, backgroundColor: '#000'},
   header: {
@@ -361,8 +319,5 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     zIndex: 1000,
->>>>>>> Stashed changes
   },
 });
-
-export default App;
