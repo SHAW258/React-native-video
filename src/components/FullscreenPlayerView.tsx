@@ -1,19 +1,20 @@
 import React from 'react';
-import { View, TouchableWithoutFeedback, StyleSheet, ActivityIndicator, Text } from 'react-native';
+import { View, TouchableWithoutFeedback, ActivityIndicator, Text, StyleSheet } from 'react-native';        
 import { TopBar, CenterControls, BottomBar, LoadingOverlay } from './VideoPlayerComponents';
 import { SettingsModal } from './SettingsModal';
 import { playerStyles as styles } from './VideoPlayerStyles';
 
-export const NormalPlayerView = ({
+export const FullscreenPlayerView = ({
   player,
   video,
   onNext,
   onPrevious,
-  onMinimize,
   iconOpacity,
+  width,
+  height,
 }: any) => (
-  <View style={styles.normalContainer}>
-    <View style={styles.videoWrapper}>
+  <View style={[StyleSheet.absoluteFill, { width, height }]}>
+    <View style={[styles.videoWrapper, StyleSheet.absoluteFill]}>
       {/* Backdrop for toggling controls */}
       {!player.isPip && (
         <TouchableWithoutFeedback onPress={player.handleMainPress}>
@@ -33,23 +34,23 @@ export const NormalPlayerView = ({
 
       {player.showControls && !player.isPip && (
         <View pointerEvents="box-none" style={styles.controlsOverlay}>
-          <TopBar 
-              title={video.title} isFullscreen={false} 
-              isAutoplay={player.isAutoplay} setIsAutoplay={player.setIsAutoplay} 
+          <TopBar
+              title={video.title} isFullscreen={true}
+              isAutoplay={player.isAutoplay} setIsAutoplay={player.setIsAutoplay}
               toggleSettings={player.toggleSettings} onPipPress={player.togglePip}
-              onMinimize={onMinimize} opacity={iconOpacity} 
+              opacity={iconOpacity}
           />
-          <CenterControls 
-              onPrevious={onPrevious} onNext={onNext} 
-              paused={player.paused} setPaused={player.setPaused} 
-              loading={player.loading} isBuffering={player.isBuffering} 
+          <CenterControls
+              onPrevious={onPrevious} onNext={onNext}
+              paused={player.paused} setPaused={player.setPaused}
+              loading={player.loading} isBuffering={player.isBuffering}
               opacity={iconOpacity} isConnected={player.isConnected}
           />
-          <BottomBar 
-              currentTime={player.currentTime} duration={player.duration} 
-              handleSeek={player.handleSeek} toggleFullscreen={player.toggleFullscreen} 
-              isFullscreen={false} loading={player.loading} 
-              opacity={iconOpacity} 
+          <BottomBar
+              currentTime={player.currentTime} duration={player.duration}
+              handleSeek={player.handleSeek} toggleFullscreen={player.toggleFullscreen}
+              isFullscreen={true} loading={player.loading}
+              opacity={iconOpacity}
           />
         </View>
       )}

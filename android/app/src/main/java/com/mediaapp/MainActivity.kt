@@ -4,8 +4,17 @@ import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
 import com.facebook.react.defaults.DefaultReactActivityDelegate
+import android.content.res.Configuration
+import android.content.Intent
 
 class MainActivity : ReactActivity() {
+
+  override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean, newConfig: Configuration) {
+      super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
+      val intent = Intent("onPictureInPictureModeChanged")
+      intent.putExtra("isInPictureInPictureMode", isInPictureInPictureMode)
+      this.sendBroadcast(intent)
+  }
 
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule

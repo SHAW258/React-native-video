@@ -74,8 +74,14 @@ export function useVideoPlayer({
 
   // Network Monitoring
   useEffect(() => {
+    // Check initial state
+    NetInfo.fetch().then(state => {
+      setIsConnected(state.isConnected ?? true);
+    });
+
     const unsubscribe = NetInfo.addEventListener(state => {
-      setIsConnected(!!state.isConnected);
+      // Only set to false if we are sure it's disconnected
+      setIsConnected(state.isConnected !== false);
     });
     return () => unsubscribe();
   }, []);

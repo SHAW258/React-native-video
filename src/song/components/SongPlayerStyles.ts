@@ -10,162 +10,111 @@ const absoluteFill = {
 
 export const songStyles = StyleSheet.create({
   container: {
-    backgroundColor: '#101010',
+    backgroundColor: '#000',
     overflow: 'hidden',
   },
   normalContainer: {
-    minHeight: 270,
-    backgroundColor: '#151515',
+    width: '100%',
+    aspectRatio: 16 / 9,
+    backgroundColor: '#000',
+  },
+  videoWrapper: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    overflow: 'hidden',
   },
   artwork: {
     ...absoluteFill,
     width: '100%',
     height: '100%',
-    opacity: 0.42,
-  },
-  artworkFocused: {
-    width: 96,
-    height: 96,
-    borderRadius: 8,
-    backgroundColor: '#333',
+    opacity: 0.6,
   },
   overlay: {
     ...absoluteFill,
-    backgroundColor: 'rgba(0,0,0,0.48)',
-    padding: 14,
+    backgroundColor: 'rgba(0,0,0,0.4)',
     justifyContent: 'space-between',
   },
-  topBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  
+  // Reuse/Mirror Video Player Style Names
+  controlsOverlay: {
+    ...absoluteFill,
+    backgroundColor: 'rgba(0,0,0,0.4)',
     justifyContent: 'space-between',
-    gap: 12,
+    zIndex: 10,
   },
-  titleGroup: {
-    flex: 1,
-  },
-  category: {
-    color: '#3EA6FF',
-    fontSize: 12,
-    fontWeight: '700',
-    textTransform: 'uppercase',
-  },
-  title: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: '700',
-    marginTop: 3,
-  },
-  artist: {
-    color: '#d6d6d6',
-    fontSize: 13,
-    marginTop: 2,
-  },
-  iconButton: {
-    padding: 10,
-  },
-  center: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 36,
-  },
-  playButton: {
-    width: 68,
-    height: 68,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 34,
-    backgroundColor: 'rgba(255,255,255,0.16)',
-  },
-  bottom: {
-    gap: 6,
-  },
-  sliderRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  slider: {
-    flex: 1,
-    height: 42,
-    marginHorizontal: 6,
-  },
-  timeText: {
-    color: '#fff',
-    fontSize: 12,
-    minWidth: 40,
-    textAlign: 'center',
-    fontVariant: ['tabular-nums'],
-  },
-  metaRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-  },
-  chip: {
-    color: '#e7e7e7',
-    fontSize: 12,
-    backgroundColor: 'rgba(255,255,255,0.12)',
-    borderRadius: 8,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    overflow: 'hidden',
-  },
-  description: {
-    color: '#ddd',
-    fontSize: 13,
-    lineHeight: 18,
-  },
+  
+  // Mini Player (PiP Style)
   miniContainer: {
     position: 'absolute',
     bottom: 30,
     right: 15,
-    width: 250,
-    height: 82,
+    width: 220,
+    aspectRatio: 16 / 9,
+    backgroundColor: '#181818',
     borderRadius: 14,
     overflow: 'hidden',
-    backgroundColor: '#181818',
     zIndex: 10000,
     elevation: 20,
-    borderWidth: 1,
+    borderWidth: 1.5,
     borderColor: '#333',
   },
-  miniInner: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 9,
-    padding: 8,
+  miniContentInner: {
+    width: '100%',
+    height: '100%',
+    position: 'relative',
   },
   miniArtwork: {
-    width: 54,
-    height: 54,
-    borderRadius: 8,
-    backgroundColor: '#333',
+    ...absoluteFill,
+    width: '100%',
+    height: '100%',
+    opacity: 0.5,
   },
-  miniText: {
-    flex: 1,
+  miniControlsOverlay: {
+    ...absoluteFill,
+    backgroundColor: 'rgba(0,0,0,0.35)',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 20,
   },
-  miniTitle: {
-    color: '#fff',
-    fontSize: 13,
-    fontWeight: '700',
+  miniIconButton: {
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  miniArtist: {
-    color: '#aaa',
-    fontSize: 11,
-    marginTop: 2,
+  miniCloseButton: {
+    position: 'absolute',
+    top: 6,
+    right: 6,
+    zIndex: 30,
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    borderRadius: 18,
+    padding: 4,
   },
-  miniProgress: {
+  miniProgressBar: {
     position: 'absolute',
     bottom: 0,
     left: 0,
     height: 3,
-    backgroundColor: '#3EA6FF',
+    backgroundColor: '#FF0000',
   },
+  miniInfo: {
+      position: 'absolute',
+      bottom: 8,
+      left: 10,
+      right: 40,
+  },
+  miniTitle: {
+      color: '#fff',
+      fontSize: 11,
+      fontWeight: '700',
+  },
+
+  // Modal & Settings
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.65)',
+    backgroundColor: 'rgba(0,0,0,0.6)',
     justifyContent: 'flex-end',
   },
   settingsContent: {
@@ -187,9 +136,11 @@ export const songStyles = StyleSheet.create({
   settingsItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 16,
-    paddingHorizontal: 22,
+    padding: 15,
+    paddingHorizontal: 20,
+  },
+  settingsTextContent: {
+      marginLeft: 15,
   },
   settingsText: {
     color: '#fff',
@@ -199,5 +150,67 @@ export const songStyles = StyleSheet.create({
     color: '#aaa',
     fontSize: 12,
     marginTop: 2,
+  },
+  
+  // Compatibility with VideoPlayerStyles names if needed
+  topBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+  },
+  topBarLeft: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  topBarRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  topIconButton: {
+    padding: 10,
+  },
+  videoTitle: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: '500',
+    marginLeft: 5,
+  },
+  centerControls: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 50,
+    flex: 1,
+  },
+  iconButton: {
+    padding: 15,
+  },
+  playButton: {
+    width: 60,
+    height: 60,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 2,
+  },
+  bottomBar: {
+    paddingHorizontal: 10,
+    paddingBottom: 15,
+  },
+  sliderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  slider: {
+    flex: 1,
+    height: 44,
+    marginHorizontal: 5,
+  },
+  timeText: {
+    color: '#fff',
+    fontSize: 12,
+    fontVariant: ['tabular-nums'],
+    minWidth: 40,
+    textAlign: 'center',
   },
 });
