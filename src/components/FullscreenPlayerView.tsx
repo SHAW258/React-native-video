@@ -14,6 +14,7 @@ export const FullscreenPlayerView = ({
   height,
 }: any) => (
   <View style={[StyleSheet.absoluteFill, { width, height }]}>
+    
     <View style={[styles.videoWrapper, StyleSheet.absoluteFill]}>
       {/* Backdrop for toggling controls */}
       {!player.isPip && (
